@@ -1,0 +1,50 @@
+﻿@page "/Employees"
+
+@using System.Net.Http
+@inject HttpClient Http
+@using System.Net.Http.Json
+@*@using VacanciesAPP.Models*@
+@inject NavigationManager NavigationManager
+
+<h3>Gestion des Employees</h3>
+
+ <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Poste</th>
+                <th>Total jours congés </th>
+                <th>jours restants</th>
+            
+            </tr>
+        </thead>
+        <tbody>        
+                <tr>
+                    <td>1</td>
+                    <td>wassim</td>
+                    <td>Ing dev</td>
+                    <td>@Nb</td>
+                    <td><button class="link">Gérer l'employé</button> </td>
+                </tr>
+                 <tr>
+                    <td>2</td>
+                    <td>Adam</td>
+                    <td>RH Agent</td>
+                    <td>@Nb</td>
+                    <td><button class="link">Gérer l'employé</button> </td>
+                </tr>
+        </tbody>
+    </table>
+
+@code {
+    //Employee emp = new Employee("wajdi Faidi","Cadre",40);
+
+
+    private double Nb=0;
+
+    protected async override Task OnInitializedAsync()
+    { 
+        Nb = await Http.GetFromJsonAsync<double>($"https://localhost:7258/api/Vacancy/GetVacancyDays/{"80b56f48-4096-4e64-927c-dd75b3629fea"}");       
+    }                                           
+}
